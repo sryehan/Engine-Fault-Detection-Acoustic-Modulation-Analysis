@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Engine Acoustic Fault Detection | WAVES Project | Shahariar Ryehan & M. Ali Saqib</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f1f5f9;
+            font-family: 'Inter', 'Times New Roman', serif;
+            color: #0f2c3f;
+            line-height: 1.5;
+            padding: 2rem 1.5rem;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 2rem 2rem 2rem 2rem;
+        }
+        h1 {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            font-size: 1.9rem;
+            background: linear-gradient(120deg, #1e4663, #b45309);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .authors {
+            font-size: 1rem;
+            color: #2c5a7a;
+            border-bottom: 2px solid #e67e22;
+            display: inline-block;
+            padding-bottom: 4px;
+            margin: 0.5rem 0 1rem 0;
+        }
+        .hypo {
+            background: #fef9e8;
+            border-left: 6px solid #e67e22;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 1rem;
+            font-style: italic;
+        }
+        .section {
+            margin: 2rem 0 2rem 0;
+        }
+        .section h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1e4663;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.3rem;
+            margin-bottom: 1rem;
+        }
+        .grid-2col {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        .audio-card {
+            flex: 1;
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e2edf7;
+        }
+        .audio-card h3 {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.75rem;
+        }
+        audio {
+            width: 100%;
+            margin: 0.5rem 0;
+            border-radius: 40px;
+        }
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .feature-table th {
+            background: #1e4663;
+            color: white;
+            padding: 10px;
+            font-weight: 600;
+        }
+        .feature-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .img-wrap {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .img-wrap img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+        .caption {
+            font-size: 0.8rem;
+            color: #4b5563;
+            margin-top: 8px;
+        }
+        .row-figures {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        .fig-item {
+            flex: 1;
+            min-width: 250px;
+        }
+        .github-note {
+            background: #eef2ff;
+            padding: 0.8rem 1.2rem;
+            border-radius: 32px;
+            font-size: 0.8rem;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #5c6f87;
+            border-top: 1px solid #cbdae9;
+            padding-top: 1.5rem;
+        }
+        @media (max-width: 760px) {
+            .container { padding: 1.2rem; }
+            h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🔧 Comparative Acoustic Analysis of a Car Engine Condition</h1>
+    <div class="authors">Muhammad Ali Saqib & Shahariar Ryehan</div>
+    <div class="authors" style="border-bottom-color:#6c8dae;">Erasmus Mundus WAVES · Audio Processing & Synthesis · July 2025</div>
+
+    <div class="hypo">
+        <strong>📌 Hypothetical Question:</strong> Can time-frequency modulation analysis of interior vehicle acoustics be used to detect and localise mechanical faults such as gear rattle or engine misalignment? How accurately can such a system classify fault types using vibration or acoustic signals combined with signal processing analysis?
+    </div>
+
+    <!-- ============ AUDIO PLAYERS ============ -->
+    <div class="grid-2col">
+        <div class="audio-card">
+            <h3>✅ Normal Engine <span style="font-size:0.8rem; background:#2c5a7a20; padding:2px 10px; border-radius:20px;">reference</span></h3>
+            <audio controls preload="metadata">
+                <source src="normal_engine.wav" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+            <p style="font-size:0.8rem; margin-top:8px;">📄 Recorded at 44.1 kHz, 16‑bit, mono converted. Steady harmonic content, low crest factor.</p>
+        </div>
+        <div class="audio-card">
+            <h3>⚠️ Faulty Engine <span style="font-size:0.8rem; background:#e67e2230; padding:2px 10px; border-radius:20px;">rattle / misalignment</span></h3>
+            <audio controls preload="metadata">
+                <source src="faulty_engine.wav" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+            <p style="font-size:0.8rem; margin-top:8px;">📄 Same engine but with mechanical irregularities – impulsive noise, higher kurtosis & crest factor.</p>
+        </div>
+    </div>
+
+    <!-- ============ FIGURES from report ============ -->
+    <div class="section">
+        <h2>📷 Experimental Setup & Signal Visualisation</h2>
+        <div class="img-wrap">
+            <img src="1_need.png" alt="Microphone installation in vehicle cabin" style="max-height:380px; width:auto;">
+            <div class="caption"><strong>Figure 1:</strong> Installation of microphone sensors inside cabin and near engine bay (pressure microphones, accelerometers).</div>
+        </div>
+        <div class="row-figures">
+            <div class="fig-item">
+                <img src="car_signal.png" alt="Time domain signals (normal vs faulty)" style="width:100%;">
+                <div class="caption"><strong>Figure 2:</strong> Raw waveforms – 5 sec comparison. Faulty engine shows irregular amplitude bursts.</div>
+            </div>
+            <div class="fig-item">
+                <img src="fft.png" alt="FFT comparison normal vs faulty" style="width:100%;">
+                <div class="caption"><strong>Figure 3:</strong> FFT magnitude spectrum – faulty engine exhibits wider sidebands and increased high‑frequency noise.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ RESULTS & FEATURE TABLE ============ -->
+    <div class="section">
+        <h2>📊 Quantitative Features & Fault Indicators</h2>
+        <table class="feature-table">
+            <thead><tr><th>Feature</th><th>Normal Engine</th><th>Faulty Engine</th><th>Interpretation</th></tr></thead>
+            <tbody>
+                <tr><td>RMS (amplitude)</td><td>0.31469</td><td>0.23875</td><td>Lower RMS → energy loss / inconsistent combustion</td></tr>
+                <tr><td>Crest Factor (peak/RMS)</td><td>2.5444</td><td>3.343</td><td><strong>⬆️ Higher crest factor → impulsive noise (gear rattle)</strong></td></tr>
+                <tr><td>Skewness</td><td>−0.002 (≈0)</td><td>+0.258</td><td>Positive skew → asymmetric impacts</td></tr>
+                <tr><td>Kurtosis (peakiness)</td><td>1.97</td><td>2.60</td><td><strong>🔥 Elevated kurtosis → heavy tails, intermittent impacts (rattle)</strong></td></tr>
+                <tr><td>Modulation Frequency (Hz)</td><td>0 (not dominant)</td><td>0 (below threshold)</td><td>Modulation visually present but statistically weak</td></tr>
+                <tr><td>Dominant Carrier (kHz)</td><td>~5.0</td><td>~4.9</td><td>Main engine tone preserved</td></tr>
+            </tbody>
+        </table>
+        <p><strong>✅ Key finding:</strong> Crest factor > 3.0 and kurtosis > 2.5 indicate mechanical faults (gear rattle / misalignment) even when modulation frequency is not explicit. Spectral kurtosis map (not shown here but in the original report) further confirms high‑frequency transients between 4‑8 kHz.</p>
+    </div>
+
+    <!-- ============ full report content (abridged but complete) ============ -->
+    <div class="section">
+        <h2>📖 1. Introduction</h2>
+        <p>In automotive diagnostics, acoustic analysis has emerged as a non‑invasive method to identify abnormal behaviours such as gear rattle, misfires, or bearing wear. Engine sounds contain valuable information that can be used to detect mechanical faults, monitor performance, and improve maintenance strategies. The purpose of this project is to compare and analyse audio recordings of a normal engine with a faulty engine sound through a series of signal processing techniques implemented in MATLAB. By applying filtering, time‑frequency analysis (spectrograms, continuous wavelet transforms), FFT, and error metrics, differences between the two signals can be quantitatively and visually assessed.</p>
+    </div>
+
+    <div class="section">
+        <h2>📐 2. Methodology (brief)</h2>
+        <p><strong>a) STFT:</strong> Short‑time Fourier transform with window lengths 1024 (high temporal resolution) and 4096 (high frequency resolution). Overlap 90%.<br>
+        <strong>b) Envelope & Hilbert transform:</strong> \( e[k] = |\mathcal{H}\{x[k]\}| \) to detect modulation and impacts.<br>
+        <strong>c) Spectral Kurtosis:</strong> \( \kappa(n) = \frac{\frac{1}{L}\sum |E(n,l)|^4}{\left(\frac{1}{L}\sum |E(n,l)|^2\right)^2} \) – identifies non‑stationary impulsive components (gear rattle).</p>
+    </div>
+
+    <div class="section">
+        <h2>🎙️ 3. Data Collection</h2>
+        <p>Publicly available engine recordings (44.1 kHz, 16‑bit, WAV) – healthy vs faulty (same engine type). Pressure microphones mounted inside cabin and near gearbox. Sampling frequency ≥10 kHz ensures capture of high‑frequency rattle phenomena. Our recordings were downsampled to 22.05 kHz for processing but original 44.1 kHz used for analysis.</p>
+    </div>
+
+    <div class="section">
+        <h2>⚙️ 4. Preprocessing</h2>
+        <p>Stereo to mono conversion, detrending (mean subtraction), amplitude normalisation, Hilbert envelope extraction, and time‑frequency representations via STFT (short/long windows).</p>
+    </div>
+
+    <div class="section">
+        <h2>📈 5. Results & Time‑Frequency Analysis</h2>
+        <p>The faulty engine exhibits <strong>increased spread in spectrograms</strong> and noisier sidebands around 5 kHz. Envelope STFT shows subtle vertical smearing (amplitude modulation). DIY spectral kurtosis map (bottom‑right in original report) reveals significantly elevated kurtosis values between 4–8 kHz for the faulty engine, indicating sharp impacts / gear backlash. The normal engine maintains low, uniform kurtosis.</p>
+        <p><strong>Feature table correlation:</strong> Faulty engine: lower RMS (0.23875 vs 0.31469), higher crest factor (3.343 vs 2.544), higher kurtosis (2.60 vs 1.97). These are classic markers of impulsive noise from mechanical faults such as gear rattle or early misalignment.</p>
+    </div>
+
+    <div class="section">
+        <h2>🔊 6. Modulation Analysis</h2>
+        <p>Both recordings (5 sec each) were analysed. Although the extracted modulation frequency remained 0 Hz (below threshold), the combination of crest factor and kurtosis successfully discriminated the faulty condition. Carrier frequency remained consistent (~5 kHz), confirming that the primary engine tone is unchanged, but amplitude distribution and impulsiveness vary due to the fault.</p>
+    </div>
+
+    <div class="section">
+        <h2>📉 7. Error Analysis</h2>
+        <ul style="margin-left: 1.5rem;">
+            <li>Mean Squared Error (MSE): 0.052391</li>
+            <li>Root Mean Squared Error (RMSE): 0.228890</li>
+            <li>Signal‑to‑Noise Ratio (SNR): 2.77 dB</li>
+        </ul>
+        <p>These metrics quantify the difference between normal and faulty signals in the time domain; the low SNR confirms strong dissimilarity caused by fault transients.</p>
+    </div>
+
+    <div class="section">
+        <h2>🚀 8. Future Work & Conclusion</h2>
+        <p><strong>Future work:</strong> Real‑time fault detection embedded in vehicle ECUs, integration of accelerometers + microphones, machine learning classification on larger datasets, and fleet‑level predictive maintenance.</p>
+        <p><strong>Conclusion:</strong> Acoustic signal analysis effectively detects engine faults (gear rattle, misalignment) using metrics like crest factor and spectral kurtosis. Time‑frequency methods provide non‑invasive, early diagnosis for automotive systems. The study confirms that even without explicit modulation peaks, statistical features (kurtosis > 2.5, crest factor > 3.0) reliably indicate mechanical anomalies.</p>
+    </div>
+
+    <div class="section">
+        <h2>📚 References</h2>
+        <p>[1] M. Bodden, R. Heinrichs. <em>Analysis of the time structure of gear rattle</em>. Internoise 99.<br>
+        [2] R. Heinrichs, M. Bodden. <em>Perceptual and instrumental description of the gear‑rattle phenomenon</em>. Proc. Int. Congress on Sound and Vibration, Copenhagen, 3103‑3112.</p>
+    </div>
+
+    <!-- GitHub reference note (cautious about link) -->
+    <div class="github-note">
+        🐙 <strong>Project Repository:</strong> <a href="https://github.com/sryehan/Engine-Fault-Detection-Acoustic-Modulation-Analysis" target="_blank" rel="noopener noreferrer">github.com/sryehan/Engine-Fault-Detection-Acoustic-Modulation-Analysis</a><br>
+        Contains MATLAB code, full report PDF, and the audio samples (<code>normal_engine.wav</code>, <code>faulty_engine.wav</code>). All figures are generated from the same analysis pipeline.
+    </div>
+
+    <footer>
+        🔬 Erasmus Mundus WAVES – Aix‑Marseille Université / Universitat Politècnica de València / University of Coimbra<br>
+        This page is part of the academic project “Comparative Acoustic Analysis of a Car Engine Condition” (Audio Processing and Synthesis, July 2025).
+    </footer>
+</div>
+</body>
+</html>
