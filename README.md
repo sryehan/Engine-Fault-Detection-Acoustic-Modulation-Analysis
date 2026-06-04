@@ -1,0 +1,1 @@
+This project compares normal vs faulty engine sounds using STFT, envelope analysis, spectral kurtosis, and modulation analysis (inspired by Bodden & Heinrichs 1999). Features like crest factor, RMS, skewness, and kurtosis are extracted to detect gear rattle and misalignment. MATLAB code included.
